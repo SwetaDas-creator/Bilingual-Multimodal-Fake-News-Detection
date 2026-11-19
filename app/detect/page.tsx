@@ -13,6 +13,7 @@ import ResultCard from "@/components/detect/ResultCard";
 import PageHeader from "@/components/ui/PageHeader";
 import Spinner from "@/components/ui/Spinner";
 import { detectNews } from "@/lib/api";
+import { saveLatestDetectionResult } from "@/lib/detectionStorage";
 import { MAX_TEXT_LENGTH, validateImage, validateText } from "@/lib/validation";
 import type {
   DetectionMode,
@@ -28,38 +29,43 @@ const MODES: {
   icon: React.ElementType;
   needsText: boolean;
   needsImage: boolean;
+  available: boolean;
 }[] = [
   {
-    id: "bengali-text",
+    id: "bangla-text",
     label: "Bengali Text",
-    description: "Analyse a Bengali post or headline",
+    description: "BanglaBERT · Model connected and ready",
     icon: Languages,
     needsText: true,
     needsImage: false,
+    available: true,
   },
   {
     id: "english-text",
     label: "English Text",
-    description: "Analyse an English post or headline",
+    description: "English BERT · Model connected and ready",
     icon: Type,
     needsText: true,
     needsImage: false,
+    available: true,
   },
   {
     id: "image-only",
     label: "Image Only",
-    description: "Analyse an image on its own",
+    description: "Not implemented yet",
     icon: ImageIcon,
     needsText: false,
     needsImage: true,
+    available: false,
   },
   {
     id: "multimodal",
     label: "Text + Image",
-    description: "Analyse text and image together",
+    description: "Not implemented yet",
     icon: Layers,
     needsText: true,
     needsImage: true,
+    available: false,
   },
 ];
 
@@ -67,7 +73,7 @@ type Status = "idle" | "loading" | "success" | "error";
 
 export default function DetectPage() {
   /* ---------- State ---------- */
-  const [mode, setMode] = useState<DetectionMode>("bengali-text");
+  const [mode, setMode] = useState<DetectionMode>("english-text");
   const [text, setText] = useState("");
   const [image, setImage] = useState<File | null>(null);
   // Language only needs choosing in multimodal mode; other modes imply it
@@ -98,7 +104,7 @@ export default function DetectPage() {
 
   /** Resolve the language implied by the current mode. */
   const resolveLanguage = (): Language => {
-    if (mode === "bengali-text") return "Bengali";
+    if (mode === "bangla-text") return "Bengali";
     if (mode === "english-text") return "English";
     if (mode === "multimodal") return multimodalLang;
     return "Not applicable";
@@ -162,6 +168,7 @@ export default function DetectPage() {
         },
         controller.signal
       );
+      saveLatestDetectionResult(response);
       setResult(response);
       setStatus("success");
     } catch (err) {
@@ -188,7 +195,7 @@ export default function DetectPage() {
   };
 
   const isBengaliInput =
-    mode === "bengali-text" ||
+    mode === "bangla-text" ||
     (mode === "multimodal" && multimodalLang === "Bengali");
 
   /* ---------- Render ---------- */
@@ -223,6 +230,7 @@ export default function DetectPage() {
                     key={m.id}
                     type="button"
                     role="radio"
+                    disabled={loading || !m.available}
                     aria-checked={selected}
                     onClick={() => handleModeChange(m.id)}
                     className={`flex flex-col items-start gap-1 rounded-lg border p-4 text-left transition-colors disabled:cursor-not-allowed ${

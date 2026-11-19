@@ -1,5 +1,5 @@
 export type DetectionMode =
-  | "bengali-text"
+  | "bangla-text"
   | "english-text"
   | "image-only"
   | "multimodal";

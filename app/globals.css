@@ -4,8 +4,170 @@ html {
   scroll-behavior: smooth;
 }
 
+:root {
+  --paper: #f8f5ed;
+  --paper-shadow: #f0ede4;
+  --ink: #252525;
+  --ink-soft: #666158;
+  --ink-line: #393630;
+  --ink-muted: #969187;
+  --accent: #c65b4b;
+  --leaf: #788b72;
+}
+
+body.site-paper {
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(to bottom, transparent 31px, rgb(57 54 48 / 3.5%) 32px),
+    radial-gradient(ellipse at 14% 0%, rgb(255 255 255 / 70%), transparent 48%);
+  background-size: 100% 32px, 100% 100%;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-editorial), Georgia, serif;
+  color: var(--ink);
+  letter-spacing: -0.025em;
+}
+
+/* Recolour the existing Tailwind surfaces without changing their layout or behaviour. */
+.bg-white { background-color: rgb(255 255 255 / 58%) !important; }
+.bg-slate-50 { background-color: var(--paper) !important; }
+.bg-slate-100 { background-color: var(--paper-shadow) !important; }
+.border-slate-200,
+.border-slate-300 { border-color: rgb(57 54 48 / 24%) !important; }
+.text-slate-900,
+.text-slate-800 { color: var(--ink) !important; }
+.text-slate-700,
+.text-slate-600 { color: var(--ink-soft) !important; }
+.text-slate-500,
+.text-slate-400 { color: var(--ink-muted) !important; }
+.text-teal-700,
+.text-teal-600,
+.text-teal-500,
+.text-teal-400 { color: var(--leaf) !important; }
+.text-teal-300 { color: var(--accent) !important; }
+.bg-teal-600,
+.bg-teal-500 { background-color: var(--accent) !important; }
+.bg-teal-700,
+.hover\:bg-teal-700:hover { background-color: #ad4b3d !important; }
+.border-teal-500 { border-color: var(--leaf) !important; }
+.shadow-sm { box-shadow: 0 3px 12px rgb(57 54 48 / 6%) !important; }
+
+button,
+a[role="button"] {
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+textarea,
+input,
+select {
+  border-color: rgb(57 54 48 / 35%);
+  background-color: rgb(255 255 255 / 60%);
+}
+
+textarea:focus,
+input:focus,
+select:focus {
+  border-color: var(--leaf);
+  outline: 2px solid rgb(120 139 114 / 20%);
+  outline-offset: 1px;
+}
+
+.hand-note { font-family: var(--font-handwritten), cursive; }
+
+.site-nav {
+  background: rgb(248 245 237 / 94%);
+  backdrop-filter: blur(12px);
+}
+
+.active-link {
+  border-bottom: 1px solid var(--accent);
+  border-radius: 0;
+  color: var(--ink) !important;
+  background: transparent;
+}
+
+.home-hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgb(57 54 48 / 24%);
+  background:
+    radial-gradient(ellipse at 82% 30%, rgb(255 255 255 / 85%), transparent 37%),
+    var(--paper-shadow);
+}
+
+.hero-doodle {
+  position: absolute;
+  top: 13%;
+  right: max(4vw, calc((100vw - 1160px) / 2));
+  width: clamp(125px, 19vw, 230px);
+  stroke: rgb(57 54 48 / 27%);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.2;
+  transform: rotate(-5deg);
+}
+
+.home-hero > div { position: relative; z-index: 1; }
+
+.page-header {
+  background: linear-gradient(110deg, rgb(240 237 228 / 78%), rgb(248 245 237 / 50%));
+}
+
+.page-header-copy { max-width: calc(100% - 160px); }
+
+.page-header-doodle {
+  position: absolute;
+  top: 50%;
+  right: 2rem;
+  width: 132px;
+  stroke: rgb(57 54 48 / 28%);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+  transform: translateY(-50%) rotate(-4deg);
+}
+
+.paper-card {
+  border-radius: 4px 3px 5px 3px;
+  box-shadow: 0 4px 14px rgb(57 54 48 / 5%) !important;
+}
+
+.sketch-button {
+  border-radius: 3px 4px 2px 4px;
+  box-shadow: 1px 2px 0 rgb(57 54 48 / 12%);
+}
+
+.sketch-button:hover { transform: translateY(-1px); }
+
+.site-footer {
+  background: rgb(240 237 228 / 75%);
+}
+
+.mobile-nav { background: var(--paper); }
+
+@media (max-width: 900px) {
+  .hero-doodle { display: none; }
+}
+
+@media (max-width: 640px) {
+  .page-header-copy { max-width: none; }
+  .page-header-doodle { display: none; }
+}
+
+.editorial-underline {
+  text-decoration: underline;
+  text-decoration-color: rgb(198 91 75 / 55%);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+}
+
 /* Visible, consistent focus ring for accessibility */
 :focus-visible {
-  outline: 2px solid #2dd4bf; /* teal-400 */
+  outline: 2px solid #c65b4b;
   outline-offset: 2px;
 }

@@ -1,0 +1,245 @@
+{
+  "total_samples": 10,
+  "successful_responses": 10,
+  "correct_predictions": 6,
+  "incorrect_predictions": 4,
+  "accuracy_over_successful_responses": 0.6,
+  "accuracy": 0.6,
+  "precision": 1.0,
+  "recall": 0.2,
+  "f1": 0.3333333333333333,
+  "confusion_matrix_labels_0_FAKE_1_REAL": [
+    [
+      5,
+      0
+    ],
+    [
+      4,
+      1
+    ]
+  ],
+  "metrics_library": "stdlib fallback (sklearn unavailable)",
+  "results": [
+    {
+      "sample_id": "R1",
+      "expected_label": "REAL",
+      "expected_verdict": "likely_real",
+      "predicted_label": "FAKE",
+      "verdict": "likely_fake",
+      "confidence": 0.9902570247650146,
+      "correct": false,
+      "http_status": 200,
+      "model": "BanglaBERT",
+      "language": "Bengali",
+      "mode": "bangla-text",
+      "explanation": "BanglaBERT assigned label FAKE with 99.0% model confidence.",
+      "model_response": {
+        "verdict": "likely_fake",
+        "confidence": 0.9902570247650146,
+        "mode": "bangla-text",
+        "language": "Bengali",
+        "model": "BanglaBERT",
+        "explanation": "BanglaBERT assigned label FAKE with 99.0% model confidence."
+      }
+    },
+    {
+      "sample_id": "R2",
+      "expected_label": "REAL",
+      "expected_verdict": "likely_real",
+      "predicted_label": "REAL",
+      "verdict": "likely_real",
+      "confidence": 0.5446316003799438,
+      "correct": true,
+      "http_status": 200,
+      "model": "BanglaBERT",
+      "language": "Bengali",
+      "mode": "bangla-text",
+      "explanation": "BanglaBERT assigned label REAL with 54.5% model confidence.",
+      "model_response": {
+        "verdict": "likely_real",
+        "confidence": 0.5446316003799438,
+        "mode": "bangla-text",
+        "language": "Bengali",
+        "model": "BanglaBERT",
+        "explanation": "BanglaBERT assigned label REAL with 54.5% model confidence."
+      }
+    },
+    {
+      "sample_id": "R3",
+      "expected_label": "REAL",
+      "expected_verdict": "likely_real",
+      "predicted_label": "FAKE",
+      "verdict": "likely_fake",
+      "confidence": 0.6071954369544983,
+      "correct": false,
+      "http_status": 200,
+      "model": "BanglaBERT",
+      "language": "Bengali",
+      "mode": "bangla-text",
+      "explanation": "BanglaBERT assigned label FAKE with 60.7% model confidence.",
+      "model_response": {
+        "verdict": "likely_fake",
+        "confidence": 0.6071954369544983,
+        "mode": "bangla-text",
+        "language": "Bengali",
+        "model": "BanglaBERT",
+        "explanation": "BanglaBERT assigned label FAKE with 60.7% model confidence."
+      }
+    },
+    {
+      "sample_id": "R4",
+      "expected_label": "REAL",
+      "expected_verdict": "likely_real",
+      "predicted_label": "FAKE",
+      "verdict": "likely_fake",
+      "confidence": 0.9956159591674805,
+      "correct": false,
+      "http_status": 200,
+      "model": "BanglaBERT",
+      "language": "Bengali",
+      "mode": "bangla-text",
+      "explanation": "BanglaBERT assigned label FAKE with 99.6% model confidence.",
+      "model_response": {
+        "verdict": "likely_fake",
+        "confidence": 0.9956159591674805,
+        "mode": "bangla-text",
+        "language": "Bengali",
+        "model": "BanglaBERT",
+        "explanation": "BanglaBERT assigned label FAKE with 99.6% model confidence."
+      }
+    },
+    {
+      "sample_id": "R5",
+      "expected_label": "REAL",
+      "expected_verdict": "likely_real",
+      "predicted_label": "FAKE",
+      "verdict": "likely_fake",
+      "confidence": 0.5960021615028381,
+      "correct": false,
+      "http_status": 200,
+      "model": "BanglaBERT",
+      "language": "Bengali",
+      "mode": "bangla-text",
+      "explanation": "BanglaBERT assigned label FAKE with 59.6% model confidence.",
+      "model_response": {
+        "verdict": "likely_fake",
+        "confidence": 0.5960021615028381,
+        "mode": "bangla-text",
+        "language": "Bengali",
+        "model": "BanglaBERT",
+        "explanation": "BanglaBERT assigned label FAKE with 59.6% model confidence."
+      }
+    },
+    {
+      "sample_id": "F1",
+      "expected_label": "FAKE",
+      "expected_verdict": "likely_fake",
+      "predicted_label": "FAKE",
+      "verdict": "likely_fake",
+      "confidence": 0.9980356097221375,
+      "correct": true,
+      "http_status": 200,
+      "model": "BanglaBERT",
+      "language": "Bengali",
+      "mode": "bangla-text",
+      "explanation": "BanglaBERT assigned label FAKE with 99.8% model confidence.",
+      "model_response": {
+        "verdict": "likely_fake",
+        "confidence": 0.9980356097221375,
+        "mode": "bangla-text",
+        "language": "Bengali",
+        "model": "BanglaBERT",
+        "explanation": "BanglaBERT assigned label FAKE with 99.8% model confidence."
+      }
+    },
+    {
+      "sample_id": "F2",
+      "expected_label": "FAKE",
+      "expected_verdict": "likely_fake",
+      "predicted_label": "FAKE",
+      "verdict": "likely_fake",
+      "confidence": 0.9972988963127136,
+      "correct": true,
+      "http_status": 200,
+      "model": "BanglaBERT",
+      "language": "Bengali",
+      "mode": "bangla-text",
+      "explanation": "BanglaBERT assigned label FAKE with 99.7% model confidence.",
+      "model_response": {
+        "verdict": "likely_fake",
+        "confidence": 0.9972988963127136,
+        "mode": "bangla-text",
+        "language": "Bengali",
+        "model": "BanglaBERT",
+        "explanation": "BanglaBERT assigned label FAKE with 99.7% model confidence."
+      }
+    },
+    {
+      "sample_id": "F3",
+      "expected_label": "FAKE",
+      "expected_verdict": "likely_fake",
+      "predicted_label": "FAKE",
+      "verdict": "likely_fake",
+      "confidence": 0.6035351157188416,
+      "correct": true,
+      "http_status": 200,
+      "model": "BanglaBERT",
+      "language": "Bengali",
+      "mode": "bangla-text",
+      "explanation": "BanglaBERT assigned label FAKE with 60.4% model confidence.",
+      "model_response": {
+        "verdict": "likely_fake",
+        "confidence": 0.6035351157188416,
+        "mode": "bangla-text",
+        "language": "Bengali",
+        "model": "BanglaBERT",
+        "explanation": "BanglaBERT assigned label FAKE with 60.4% model confidence."
+      }
+    },
+    {
+      "sample_id": "F4",
+      "expected_label": "FAKE",
+      "expected_verdict": "likely_fake",
+      "predicted_label": "FAKE",
+      "verdict": "likely_fake",
+      "confidence": 0.9985718727111816,
+      "correct": true,
+      "http_status": 200,
+      "model": "BanglaBERT",
+      "language": "Bengali",
+      "mode": "bangla-text",
+      "explanation": "BanglaBERT assigned label FAKE with 99.9% model confidence.",
+      "model_response": {
+        "verdict": "likely_fake",
+        "confidence": 0.9985718727111816,
+        "mode": "bangla-text",
+        "language": "Bengali",
+        "model": "BanglaBERT",
+        "explanation": "BanglaBERT assigned label FAKE with 99.9% model confidence."
+      }
+    },
+    {
+      "sample_id": "F5",
+      "expected_label": "FAKE",
+      "expected_verdict": "likely_fake",
+      "predicted_label": "FAKE",
+      "verdict": "likely_fake",
+      "confidence": 0.9981677532196045,
+      "correct": true,
+      "http_status": 200,
+      "model": "BanglaBERT",
+      "language": "Bengali",
+      "mode": "bangla-text",
+      "explanation": "BanglaBERT assigned label FAKE with 99.8% model confidence.",
+      "model_response": {
+        "verdict": "likely_fake",
+        "confidence": 0.9981677532196045,
+        "mode": "bangla-text",
+        "language": "Bengali",
+        "model": "BanglaBERT",
+        "explanation": "BanglaBERT assigned label FAKE with 99.8% model confidence."
+      }
+    }
+  ],
+  "limitation": "Ten synthetic samples with assigned expected labels; not independently verified news and not official or real-world test accuracy."
+}

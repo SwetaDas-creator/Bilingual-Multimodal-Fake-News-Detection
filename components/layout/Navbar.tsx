@@ -13,7 +13,6 @@ const NAV_LINKS = [
   { href: "/models", label: "Models" },
   { href: "/results", label: "Results" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -26,12 +25,12 @@ export default function Navbar() {
   const linkClass = (href: string) =>
     `rounded-md px-3 py-2 text-sm font-medium transition-colors ${
       isActive(href)
-        ? "bg-slate-800 text-teal-300"
-        : "text-slate-300 hover:bg-slate-800 hover:text-white"
+        ? "active-link"
+        : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
     }`;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-800 bg-slate-900">
+    <header className="site-nav sticky top-0 z-40 border-b border-slate-200">
       <nav
         aria-label="Main navigation"
         className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
@@ -39,11 +38,11 @@ export default function Navbar() {
         {/* Brand */}
         <Link
           href="/"
-          className="flex items-center gap-2 text-white"
+          className="flex items-center gap-2 text-slate-900"
           onClick={() => setOpen(false)}
         >
-          <ScanSearch className="h-6 w-6 text-teal-400" aria-hidden="true" />
-          <span className="text-base font-semibold tracking-tight">
+          <ScanSearch className="h-6 w-6 text-teal-600" aria-hidden="true" />
+          <span className="hand-note text-2xl font-semibold tracking-tight">
             BiMFND
           </span>
         </Link>
@@ -66,7 +65,7 @@ export default function Navbar() {
         {/* Mobile toggle */}
         <button
           type="button"
-          className="rounded-md p-2 text-slate-300 hover:bg-slate-800 hover:text-white lg:hidden"
+          className="rounded-md border border-slate-300 p-2 text-slate-700 hover:bg-slate-100 lg:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -80,7 +79,7 @@ export default function Navbar() {
       {open && (
         <ul
           id="mobile-menu"
-          className="space-y-1 border-t border-slate-800 px-4 py-3 lg:hidden"
+          className="mobile-nav space-y-1 border-t border-slate-200 px-4 py-3 lg:hidden"
         >
           {NAV_LINKS.map((l) => (
             <li key={l.href}>

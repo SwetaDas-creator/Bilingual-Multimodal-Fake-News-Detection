@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/ui/PageHeader";
+import LatestResult from "@/components/detect/LatestResult";
 
 export const metadata: Metadata = { title: "Results" };
 
@@ -20,6 +21,7 @@ export default function ResultsPage() {
         title="Experimental Results"
         subtitle="Evaluation metrics for each model on the held-out test set."
       />
+      <LatestResult />
       <div className="mx-auto max-w-5xl space-y-8 px-4 py-10 sm:px-6 lg:px-8">
         <p className="rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
           Final results will be added after the experiments are complete.

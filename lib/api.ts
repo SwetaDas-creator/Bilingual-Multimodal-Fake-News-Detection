@@ -10,7 +10,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 /** Human-readable model name per mode (replace with whatever the backend reports). */
 const MODEL_BY_MODE: Record<DetectionRequest["mode"], string> = {
-  "bengali-text": "BanglaBERT",
+  "bangla-text": "BanglaBERT",
   "english-text": "BERT",
   "image-only": "ResNet / ViT image classifier",
   multimodal: "Multimodal fusion (text encoder + image encoder)",
@@ -53,7 +53,36 @@ async function mockDetect(
   };
 }
 
-/** Real call: multipart/form-data POST to FastAPI. Adjust the path to match the backend. */
+async function responseErrorMessage(res: Response): Promise<string> {
+  const fallback =
+    res.status >= 500
+      ? "The detection server encountered an error. Please try again later."
+      : "The request was rejected by the server. Please check your input.";
+  try {
+    const payload: unknown = await res.json();
+    if (typeof payload === "object" && payload !== null && "detail" in payload) {
+      const detail = (payload as { detail?: unknown }).detail;
+      if (typeof detail === "string") return detail;
+      if (Array.isArray(detail)) {
+        const messages = detail.flatMap((item: unknown) => {
+          if (
+            typeof item === "object" &&
+            item !== null &&
+            "msg" in item &&
+            typeof (item as { msg?: unknown }).msg === "string"
+          ) return [(item as { msg: string }).msg];
+          return [];
+        });
+        if (messages.length) return messages.join(" ");
+      }
+    }
+  } catch {
+    // Keep the status-based fallback for non-JSON responses.
+  }
+  return fallback;
+}
+
+/** Real call: multipart/form-data POST to FastAPI. */
 async function realDetect(
   req: DetectionRequest,
   signal?: AbortSignal
@@ -71,11 +100,7 @@ async function realDetect(
   });
 
   if (!res.ok) {
-    throw new Error(
-      res.status >= 500
-        ? "The detection server encountered an error. Please try again later."
-        : "The request was rejected by the server. Please check your input."
-    );
+    throw new Error(await responseErrorMessage(res));
   }
   return (await res.json()) as DetectionResponse;
 }

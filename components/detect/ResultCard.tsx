@@ -40,7 +40,7 @@ const VERDICT_STYLES: Record<
 };
 
 const MODE_LABELS: Record<DetectionMode, string> = {
-  "bengali-text": "Bengali Text",
+  "bangla-text": "Bengali Text",
   "english-text": "English Text",
   "image-only": "Image Only",
   multimodal: "Text + Image (Multimodal)",
