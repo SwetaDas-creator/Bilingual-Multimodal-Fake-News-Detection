@@ -2,11 +2,10 @@ fastapi>=0.115,<1.0
 uvicorn[standard]>=0.30,<1.0
 python-multipart>=0.0.9,<1.0
 pydantic>=2.7,<3.0
-torch>=2.14,<3.0
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.15.0+cpu
 transformers>=5.0,<6.0
 safetensors>=0.4,<1.0
-
-torchvision>=0.29,<0.30
+torchvision==0.29.2+cpu
 Pillow>=13,<14
-
-
+boto3>=1.35,<2.0

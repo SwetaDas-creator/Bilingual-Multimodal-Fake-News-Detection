@@ -7,9 +7,9 @@ import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 from app.schemas.prediction import Verdict
+from app.model_storage import get_model_base_path
 
-BACKEND_ROOT = Path(__file__).resolve().parents[2]
-MODEL_DIR = BACKEND_ROOT / "models" / "english_bert"
+MODEL_DIR = get_model_base_path() / "english_bert"
 LABEL_MAPPING_FILE = MODEL_DIR / "label_mapping.json"
 
 

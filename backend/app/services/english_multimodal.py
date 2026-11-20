@@ -10,10 +10,11 @@ from torchvision import models, transforms
 from transformers import AutoConfig, AutoModel, AutoTokenizer
 
 from app.schemas.prediction import Verdict
+from app.model_storage import get_model_base_path
 
-BACKEND_ROOT = Path(__file__).resolve().parents[2]
-MODEL_DIR = BACKEND_ROOT / "models" / "english_multimodal"
-TEXT_MODEL_DIR = BACKEND_ROOT / "models" / "english_bert"
+MODEL_BASE_PATH = get_model_base_path()
+MODEL_DIR = MODEL_BASE_PATH / "english_multimodal"
+TEXT_MODEL_DIR = MODEL_BASE_PATH / "english_bert"
 
 class EnglishMultimodalError(RuntimeError):
     """English multimodal checkpoint or inference is unavailable."""

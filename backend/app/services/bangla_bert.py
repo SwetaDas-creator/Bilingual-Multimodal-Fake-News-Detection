@@ -6,8 +6,9 @@ import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 from app.schemas.prediction import Verdict
+from app.model_storage import get_model_base_path
 
-MODEL_DIR = Path(__file__).resolve().parents[2] / "models" / "banglabert"
+MODEL_DIR = get_model_base_path() / "banglabert"
 
 class BanglaBertError(RuntimeError):
     """Local BanglaBERT model is unavailable or inference failed."""

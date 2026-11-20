@@ -10,10 +10,11 @@ from torchvision import models, transforms
 from transformers import AutoConfig, AutoModel, AutoTokenizer
 
 from app.schemas.prediction import Verdict
+from app.model_storage import get_model_base_path
 
-BACKEND_ROOT = Path(__file__).resolve().parents[2]
-MODEL_DIR = BACKEND_ROOT / "models" / "bangla_multimodal"
-TEXT_MODEL_DIR = BACKEND_ROOT / "models" / "banglabert"
+MODEL_BASE_PATH = get_model_base_path()
+MODEL_DIR = MODEL_BASE_PATH / "bangla_multimodal"
+TEXT_MODEL_DIR = MODEL_BASE_PATH / "banglabert"
 
 class BanglaMultimodalError(RuntimeError):
     """Bengali multimodal checkpoint or inference is unavailable."""
