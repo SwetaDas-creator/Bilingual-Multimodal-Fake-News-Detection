@@ -1,4 +1,4 @@
-# Bilingual Multimodal Fake News Detection: Frontend
+# Bilingual Multimodal Fake News Detection: 
 
 Next.js (App Router) · TypeScript · Tailwind CSS v4 · Lucide icons
 
