@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: bilingual-fake-news-api
+    runtime: python
+    plan: 2c-8g
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 1
+    healthCheckPath: /ready
+    disk:
+      name: bilingual-fake-news-models
+      mountPath: /var/data
+      sizeGB: 3
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: MODEL_BASE_PATH
+        value: /var/data/models
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_REGION
+        value: us-east-1
+      - key: S3_BUCKET_NAME
+        value: bilingual-fake-news-models-933428635010-us-east-1-an
+      - key: S3_MODEL_PREFIX
+        value: models/
+      - key: FRONTEND_ORIGINS
+        sync: false
