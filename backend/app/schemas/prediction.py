@@ -7,6 +7,8 @@ DetectionMode = Literal[
     "english-text",
     "image-only",
     "multimodal",
+    "english-multimodal",
+    "bangla-multimodal",
 ]
 Language = Literal["Bengali", "English", "Not applicable"]
 Verdict = Literal["likely_fake", "likely_real", "uncertain"]
@@ -23,3 +25,4 @@ class DetectionResponse(BaseModel):
     language: Language
     model: str
     explanation: str
+

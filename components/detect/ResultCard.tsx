@@ -44,6 +44,8 @@ const MODE_LABELS: Record<DetectionMode, string> = {
   "english-text": "English Text",
   "image-only": "Image Only",
   multimodal: "Text + Image (Multimodal)",
+  "english-multimodal": "English Text + Image",
+  "bangla-multimodal": "Bengali Text + Image",
 };
 
 interface Props {
@@ -164,3 +166,4 @@ export default function ResultCard({ result }: Props) {
     </section>
   );
 }
+

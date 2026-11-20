@@ -14,6 +14,8 @@ const MODEL_BY_MODE: Record<DetectionRequest["mode"], string> = {
   "english-text": "BERT",
   "image-only": "ResNet / ViT image classifier",
   multimodal: "Multimodal fusion (text encoder + image encoder)",
+  "english-multimodal": "English BERT + ResNet-50",
+  "bangla-multimodal": "BanglaBERT + ResNet-50",
 };
 
 const wait = (ms: number, signal?: AbortSignal) =>
@@ -123,3 +125,4 @@ export async function detectNews(
     throw err;
   }
 }
+

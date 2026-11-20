@@ -61,11 +61,11 @@ const MODES: {
   {
     id: "multimodal",
     label: "Text + Image",
-    description: "Not implemented yet",
+    description: "Select English or Bengali to analyze text and image",
     icon: Layers,
     needsText: true,
     needsImage: true,
-    available: false,
+    available: true,
   },
 ];
 
@@ -161,7 +161,7 @@ export default function DetectPage() {
     try {
       const response = await detectNews(
         {
-          mode,
+          mode: mode === "multimodal" ? (resolveLanguage() === "English" ? "english-multimodal" : "bangla-multimodal") : mode,
           language: resolveLanguage(),
           text: config.needsText ? text : undefined,
           image: config.needsImage ? image ?? undefined : undefined,
@@ -428,3 +428,5 @@ export default function DetectPage() {
     </>
   );
 }
+
+

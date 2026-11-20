@@ -11,6 +11,8 @@ const MODES: DetectionMode[] = [
   "english-text",
   "image-only",
   "multimodal",
+  "english-multimodal",
+  "bangla-multimodal",
 ];
 const LANGUAGES: Language[] = ["Bengali", "English", "Not applicable"];
 const VERDICTS: Verdict[] = ["likely_fake", "likely_real", "uncertain"];
@@ -55,3 +57,4 @@ export function loadLatestDetectionResult(): DetectionResponse | null {
     return null;
   }
 }
+

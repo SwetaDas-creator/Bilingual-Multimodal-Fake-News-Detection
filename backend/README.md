@@ -1,66 +1,47 @@
 # Bilingual Fake News Detection API
 
-A new FastAPI service for the existing Next.js frontend. Only English text classification is implemented. Bengali, image-only, and multimodal requests are explicitly rejected as unsupported; this backend does not return mock results.
+FastAPI backend for the existing Next.js project. The API supports English and Bengali text-only inference, plus English and Bengali text+image inference. Image-only inference is not implemented. The API returns model-generated predictions; it does not use a mock fallback.
 
-## Backend layout
+## Local model files
 
-    backend/
-    ├── app/
-    │   ├── main.py
-    │   ├── routers/
-    │   │   └── predict.py
-    │   ├── schemas/
-    │   │   └── prediction.py
-    │   └── services/
-    │       └── english_bert.py
-    ├── models/
-    │   └── english_bert/
-    │       └── .gitkeep
-    ├── requirements.txt
-    └── README.md
+Copy the multimodal checkpoints to these paths before starting the server:
 
-## Python environment
+- `models/english_multimodal/model.pt`
+- `models/bangla_multimodal/model.pt`
 
-Use Python 3.11 or newer. From PowerShell in this directory:
+The existing text-only models remain in `models/english_bert/` and `models/banglabert/`. Model binaries are intentionally excluded from Git; transfer them separately to each machine.
 
-    py -3.11 -m venv .venv
-    .\.venv\Scripts\Activate.ps1
-    python -m pip install --upgrade pip
-    python -m pip install -r requirements.txt
+## Model input pipeline
 
-PyTorch wheels depend on the operating system and CPU/GPU setup. If you need a CUDA build, choose the matching command from the official PyTorch installer selector before installing dependencies.
+Both multimodal models use the training notebook architecture: BERT-family text encoder, ResNet-50 with its final FC replaced by identity, concatenated CLS and image features, then a 2816→512→2 classifier. Inference uses local tokenizer/config assets, 128-token truncation and max-length padding, and CPU inference. Images are converted to RGB, resized to 224×224, converted to tensors, and normalized with ImageNet mean/std. Multimodal labels are 0=REAL and 1=FAKE.
 
-## Add the English BERT files
+For English, the training data text field was `clean_title`; use a headline for closest match to training. For Bengali, training text was `headline + " " + description`; enter the combined text in the frontend field.
 
-Copy the saved model files locally into:
+## Setup
 
-    models/english_bert/
+Use Python 3.11 or newer in this directory:
 
-The folder must contain the Hugging Face tokenizer, model configuration, and sequence-classification weights. The saved configuration must define both FAKE and REAL labels through id2label or label2id. Alternatively, include label_mapping.json in this folder with either an id2label object such as {"0":"FAKE","1":"REAL"} or a label2id object such as {"FAKE":0,"REAL":1}.
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+```
 
-The service loads only local files (local_files_only=True); it does not download or fabricate model weights. Until the files and mapping are present, English prediction returns HTTP 503.
+Start the API:
 
-## Run
+```powershell
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+```
 
-    python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+Health check: `GET http://127.0.0.1:8000/health`.
 
-The API documentation is available at http://127.0.0.1:8000/docs. GET /health returns {"status":"ok"}.
+## Prediction modes
 
-To connect the existing frontend, set this in the frontend's .env.local and restart Next.js:
+`POST /api/predict` accepts multipart form fields `mode`, `language`, optional `text`, and optional `image`.
 
-    NEXT_PUBLIC_API_URL=http://localhost:8000
+- `english-text` + `English`
+- `bangla-text` + `Bengali`
+- `english-multimodal` + `English` (text and image required)
+- `bangla-multimodal` + `Bengali` (text and image required)
 
-The frontend currently falls back to mock responses while that variable is empty. This README does not change the frontend configuration.
-
-## API
-
-POST /api/predict accepts multipart/form-data fields matching the frontend:
-
-- mode: one of bengali-text, english-text, image-only, multimodal
-- language: Bengali, English, or Not applicable
-- text: optional text field (required for english-text)
-- image: optional uploaded file
-
-For english-text with language=English, the API returns exactly the frontend response fields: verdict, confidence, mode, language, model, and explanation. verdict maps the saved FAKE/REAL model label to likely_fake/likely_real, respectively.
-
-Other modes return HTTP 501 with an unsupported-mode detail. Missing local model files or a missing/invalid saved label mapping return HTTP 503; inference failures return HTTP 500. No prediction is generated when the model is unavailable.
+CORS allows the existing frontend at `http://localhost:3000`.

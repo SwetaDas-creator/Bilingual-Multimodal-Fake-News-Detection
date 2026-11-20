@@ -6,3 +6,5 @@ models/english_bert/*
 
 models/banglabert/*.safetensors
 models/banglabert/*.bin
+
+models/*_multimodal/*.pt

@@ -2,7 +2,9 @@ export type DetectionMode =
   | "bangla-text"
   | "english-text"
   | "image-only"
-  | "multimodal";
+  | "multimodal"
+  | "english-multimodal"
+  | "bangla-multimodal"
 
 export type Language = "Bengali" | "English" | "Not applicable";
 
@@ -26,3 +28,4 @@ export interface DetectionResponse {
   explanation: string;
   isMock?: boolean; // true when produced by the mock API
 }
+

@@ -7,27 +7,28 @@ from starlette.concurrency import run_in_threadpool
 from app.routers.predict import router as predict_router
 from app.services.english_bert import ModelNotReadyError, load_english_model
 from app.services.bangla_bert import BanglaBertError, load_bangla_model
+from app.services.english_multimodal import EnglishMultimodalError, load_english_multimodal
+from app.services.bengali_multimodal import BanglaMultimodalError, load_bangla_multimodal
 
 logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
-    try:
-        app.state.english_bert = await run_in_threadpool(load_english_model)
-        app.state.english_bert_error = None
-        logger.info("English BERT loaded locally on CPU.")
-    except ModelNotReadyError as exc:
-        app.state.english_bert = None
-        app.state.english_bert_error = str(exc)
-        logger.exception("English BERT failed to load.")
-    try:
-        app.state.bangla_bert = await run_in_threadpool(load_bangla_model)
-        app.state.bangla_bert_error = None
-        logger.info("BanglaBERT loaded from %s on CPU.", "backend/models/banglabert")
-    except BanglaBertError as exc:
-        app.state.bangla_bert = None
-        app.state.bangla_bert_error = str(exc)
-        logger.exception("BanglaBERT failed to load.")
+    loaders = [
+        ("english_bert", load_english_model, ModelNotReadyError, "English BERT"),
+        ("bangla_bert", load_bangla_model, BanglaBertError, "BanglaBERT"),
+        ("english_multimodal", load_english_multimodal, EnglishMultimodalError, "English multimodal"),
+        ("bangla_multimodal", load_bangla_multimodal, BanglaMultimodalError, "Bengali multimodal"),
+    ]
+    for key, loader, error_type, label in loaders:
+        try:
+            setattr(app.state, key, await run_in_threadpool(loader))
+            setattr(app.state, f"{key}_error", None)
+            logger.info("%s model loaded locally on CPU.", label)
+        except error_type as exc:
+            setattr(app.state, key, None)
+            setattr(app.state, f"{key}_error", str(exc))
+            logger.exception("%s model failed to load.", label)
     yield
 
 app = FastAPI(title="Bilingual Fake News Detection API", version="0.1.0", lifespan=lifespan)
